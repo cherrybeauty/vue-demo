@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--模板-->
+<div id="app">{{ message }}</div>
+<!--v-if v-if v-for 包含index 等通用指令 -->
+<div id="app-2">
+  <span v-bind:title="message" v-if="seen">
+    鼠标悬停几秒钟查看此处动态绑定的提示信息！
+  </span>
+    <ul>
+<!--        你也可以用 of 替代 in 作为分隔符，因为它更接近 JavaScript 迭代器的语法：-->
+        <li v-for="(todoItem,index) in todos">
+            {{todoItem.text}}:{{index+1}}
+        </li>
+    </ul>
+<!--    v-for 循环对象-->
+<!--    你需要为每项提供一个唯一 key attribute：-->
+    <ul>
+        <li v-for="(value,name,index) in user" v-bind:key="name">
+            {{index+1}}:   {{name}}:{{value}}
+        </li>
+    </ul>
+
+    
+<!--    v-model 双向绑定-->
+    <input v-model="message" />
+</div>
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script type="application/javascript">
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!'
+        }
+    });
+    var app2 = new Vue({
+        el: '#app-2',
+        data: {
+            message: '页面加载于 ' + new Date().toLocaleString(),
+            seen:true,
+            todos:[
+                {
+                    text:'123',
+                    value:1
+                },
+                {
+                    text:'d32r34r',
+                    value:2
+                }
+            ],
+            user:{
+                name:'marry',
+                id:111
+            }
+        }
+    });
+     // vue 更新 是异步进行的 需要nextTick 回调 进行处理
+    app.message='new message';
+    console.log( app.$el.textContent=='new message');
+    Vue.nextTick(function () {
+        app.$el.textContent === 'new message' // true
+        console.log( app.$el.textContent=='new message');
+    })
+</script>
+</html>

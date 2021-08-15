@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--模板-->
+<div id="app">{{ message }}
+<input v-model="message" />
+    <ol>
+        <!-- 创建一个 todo-item 组件的实例 -->
+        <todo-item v-for="todoItem of groceryList" v-bind:todo="todoItem" v-bind:key="todoItem.id"></todo-item>
+    </ol>
+</div>
+
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script type="application/javascript">
+    // 组件库要定义在vue之前
+    Vue.component('todo-item',{
+        // todo-item 组件现在接受一个
+        // "prop"，类似于一个自定义 attribute。
+        // 这个 prop 名为 todo。
+        props: ['todo'],
+        template:'<li>{{todo.text}}</li>'
+    });
+    var Component = Vue.extend({
+        data: function () {
+            debugger;
+            return { a: 1 }
+        }
+    })
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!',
+            a:1,
+            _essage: 'Hello Vue!',//以 _ 或 $ 开头的 property 不会被 Vue 实例代理，因为它们可能和 Vue 内置的 property、API 方法冲突。你可以使用例如 vm.$data._property 的方式访问这些 property。
+            groceryList: [
+                { id: 0, text: '蔬菜' },
+                { id: 1, text: '奶酪' },
+                { id: 2, text: '随便其它什么人吃的东西' }
+            ]
+        },
+        // 计算属性
+        computed:{
+            aDobule: (app)=>{
+                debugger;
+                return app.a*2
+
+            },
+            aPlus:{
+                get:function (){
+                    return this.a+1;
+                },
+                set:function (v){
+                   this.a=v-1;
+                }
+            }
+        },
+        // 事件处理
+        method:{
+
+        }
+    });
+
+
+</script>
+</html>
