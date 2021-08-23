@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!--模板-->
+<div id="app">{{ message }}
+  <input v-model="message" />
+  <p  >{{reversedMessage}}</p>
+
+</div>
+
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script type="application/javascript">
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      message: 'Hello Vue!',
+      a:1,
+      _essage: 'Hello Vue!',//以 _ 或 $ 开头的 property 不会被 Vue 实例代理，因为它们可能和 Vue 内置的 property、API 方法冲突。你可以使用例如 vm.$data._property 的方式访问这些 property。
+      groceryList: [
+        { id: 0, text: '蔬菜' },
+        { id: 1, text: '奶酪' },
+        { id: 2, text: '随便其它什么人吃的东西' }
+      ]
+    },
+    // 计算属性
+    computed:{
+      reversedMessage:function (){
+        debugger;
+        return this.message.split('').reverse().join('')
+      },
+      aDobule: (app)=>{
+        debugger;
+        return app.a*2
+
+      },
+      aPlus:{
+        get:function (){
+          return this.a+1;
+        },
+        set:function (v){
+          this.a=v-1;
+        }
+      }
+    },
+    // 事件处理
+    method:{
+
+    }
+  });
+
+
+</script>
+</html>

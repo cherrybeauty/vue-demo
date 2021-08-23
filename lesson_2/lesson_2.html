@@ -6,11 +6,11 @@
 </head>
 <body>
 <!--模板-->
-<div id="app">{{ message }}
+<div id="app"  :style="{ fontSize: postFontSize + 'em' }">{{ message }}
 <input v-model="message" />
     <ol>
         <!-- 创建一个 todo-item 组件的实例 -->
-        <todo-item v-for="todoItem of groceryList" v-bind:todo="todoItem" v-bind:key="todoItem.id"></todo-item>
+        <todo-item v-for="todoItem of groceryList" v-bind:todo="todoItem" v-bind:key="todoItem.id" v-on:enlarge-text="postFontSize += 0.1"></todo-item>
     </ol>
 </div>
 
@@ -25,7 +25,9 @@
         // "prop"，类似于一个自定义 attribute。
         // 这个 prop 名为 todo。
         props: ['todo'],
-        template:'<li>{{todo.text}}</li>'
+        template:'<li>{{todo.text}} <button v-on:click="$emit(\'enlarge-text\')">\n' +
+            '  Enlarge text\n' +
+            '</button></li>  '
     });
     var Component = Vue.extend({
         data: function () {
@@ -38,6 +40,7 @@
         el: '#app',
         data: {
             message: 'Hello Vue!',
+            postFontSize:1,
             a:1,
             _essage: 'Hello Vue!',//以 _ 或 $ 开头的 property 不会被 Vue 实例代理，因为它们可能和 Vue 内置的 property、API 方法冲突。你可以使用例如 vm.$data._property 的方式访问这些 property。
             groceryList: [
